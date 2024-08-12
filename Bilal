@@ -1,0 +1,19 @@
+# Convert images to 'RGB' mode to avoid format compatibility issues
+g_class_bg_rgb = g_class_bg.convert("RGB")
+image_rgb = image.convert("RGB")
+
+# Resize the original image to fit the new background
+image_resized_rgb = image_rgb.resize(g_class_bg_rgb.size)
+
+# Composite the original image over the new background
+composite_image_rgb = Image.alpha_composite(g_class_bg_rgb.convert('RGBA'), image_resized_rgb.convert('RGBA'))
+
+# Convert the final composite image back to 'RGB' before saving
+composite_image_rgb = composite_image_rgb.convert("RGB")
+
+# Save the edited image
+output_path = "/mnt/data/edited_image_with_g_class_final.jpg"
+composite_image_rgb.save(output_path)
+
+# Display the final image
+composite_image_rgb.show()
